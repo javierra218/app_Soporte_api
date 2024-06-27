@@ -2,6 +2,7 @@
     <persistence-unit name="default">
         <class>com.makro.appSoporte_api.model.Trabajador</class>
         <class>com.makro.appSoporte_api.model.Soporte</class>
+        <class>com.makro.appSoporte_api.model.Asignacion</class>
     </persistence-unit>
 </persistence>
 
