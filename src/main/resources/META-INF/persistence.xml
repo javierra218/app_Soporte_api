@@ -1,0 +1,5 @@
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" version="2.2">
+    <persistence-unit name="default">
+        <class>com.makro.appSoporte_api.model.Trabajador</class>
+    </persistence-unit>
+</persistence>
