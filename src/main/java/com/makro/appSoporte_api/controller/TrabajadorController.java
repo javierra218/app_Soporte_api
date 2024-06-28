@@ -3,9 +3,8 @@ package com.makro.appSoporte_api.controller;
 import com.makro.appSoporte_api.model.Trabajador;
 import com.makro.appSoporte_api.service.TrabajadorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-
 
 import java.util.List;
 
@@ -20,6 +19,11 @@ public class TrabajadorController {
         return trabajadorService.getAllTrabajadores();
     }
 
+    @GetMapping("/{id}")
+    public Trabajador getTrabajadorById(@PathVariable Long id) {
+        return trabajadorService.getTrabajadorById(id);
+    }
+
     @PostMapping
     public Trabajador createTrabajador(@RequestBody Trabajador trabajador) {
         return trabajadorService.createTrabajador(trabajador);
@@ -29,6 +33,13 @@ public class TrabajadorController {
     public Trabajador updateTrabajador(@PathVariable Long id, @RequestBody Trabajador trabajador) {
         return trabajadorService.updateTrabajador(id, trabajador);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteTrabajador(@PathVariable Long id) {
+        return ResponseEntity.ok(trabajadorService.deleteTrabajador(id));
+    }
+
+    
 
     @PostMapping("/reset")
     public void resetPesosAcumulados() {

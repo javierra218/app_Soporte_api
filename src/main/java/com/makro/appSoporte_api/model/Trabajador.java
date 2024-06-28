@@ -2,6 +2,8 @@ package com.makro.appSoporte_api.model;
 
 import jakarta.persistence.*;
 
+// import javax.validation.constraints.Size;
+
 @Entity
 @Table(name = "trabajadores")
 public class Trabajador {
@@ -39,4 +41,5 @@ public class Trabajador {
     public void setPeso_acumulado(Integer peso_acumulado) {
         this.peso_acumulado = peso_acumulado;
     }
+
 }
