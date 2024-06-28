@@ -19,7 +19,7 @@ public class AsignacionController {
 
     @PostMapping("/assign/{trabajadorId}")
     public Asignacion assignSupportToSpecificWorker(@RequestBody Soporte soporte, @PathVariable Long trabajadorId) {
-        return asignacionService.assignSupportToSpecificWorker(soporte, trabajadorId);
+        return asignacionService.asignarSoporte(soporte, trabajadorId);
     }
 
 

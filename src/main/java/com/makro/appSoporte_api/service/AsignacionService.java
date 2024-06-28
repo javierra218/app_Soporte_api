@@ -65,17 +65,17 @@ public class AsignacionService {
         return asignacionRepository.save(asignacion);
     }
 
-    public Asignacion assignSupportToSpecificWorker(Soporte soporte, Long trabajadorId) {
+    public Asignacion asignarSoporte(Soporte soporte, Long trabajadorId) {
         // Guardar la entidad Soporte
         Soporte savedSoporte = soporteRepository.save(soporte);
-
+    
         // Obtener el trabajador por ID
         Trabajador trabajador = trabajadorRepository.findById(trabajadorId)
                 .orElseThrow(() -> new ResourceNotFoundException("Trabajador no encontrado con ID: " + trabajadorId));
-
+    
         // Crear y guardar la entidad Asignacion
         Asignacion asignacion = crearGuardarAsignacion(savedSoporte, trabajador);
-
+    
         return asignacion;
     }
 

@@ -42,6 +42,4 @@ public class SoporteService {
         soporteRepository.delete(existingSoporte);
     }
 
-    
-
 }
