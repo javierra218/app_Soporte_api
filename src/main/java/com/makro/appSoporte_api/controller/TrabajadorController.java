@@ -3,6 +3,7 @@ package com.makro.appSoporte_api.controller;
 import com.makro.appSoporte_api.model.Trabajador;
 import com.makro.appSoporte_api.service.TrabajadorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -45,4 +46,17 @@ public class TrabajadorController {
     public void resetPesosAcumulados() {
         trabajadorService.resetPesosAcumulados();
     }
+
+
+    // @GetMapping("/max-peso")
+    // public ResponseEntity<Trabajador> getTrabajadorConMaxPeso() {
+    //     Trabajador trabajador = trabajadorService.getTrabajadorConMaxPeso();
+    //     return new ResponseEntity<>(trabajador, HttpStatus.OK);
+    // }
+
+    // @GetMapping("/min-peso")
+    // public ResponseEntity<Trabajador> getTrabajadorConMinPeso() {
+    //     Trabajador trabajador = trabajadorService.getTrabajadorConMinPeso();
+    //     return new ResponseEntity<>(trabajador, HttpStatus.OK);
+    // }
 }

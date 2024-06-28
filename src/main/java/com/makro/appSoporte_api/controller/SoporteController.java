@@ -18,6 +18,11 @@ public class SoporteController {
         return soporteService.getAllSoportes();
     }
 
+    @GetMapping("/{id}")
+    public Soporte getSoporteById(@PathVariable Long id) {
+        return soporteService.getSoporteById(id);
+    }
+
     @PostMapping
     public Soporte createSoporte(@RequestBody Soporte soporte) {
         return soporteService.createSoporte(soporte);
@@ -27,4 +32,14 @@ public class SoporteController {
     public Soporte updateSoporte(@PathVariable Long id, @RequestBody Soporte soporte) {
         return soporteService.updateSoporte(id, soporte);
     }
+
+    @DeleteMapping("/{id}")
+    public void deleteSoporte(@PathVariable Long id) {
+        soporteService.deleteSoporte(id);
+    }
+
+
+
+    
+
 }

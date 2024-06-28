@@ -17,6 +17,11 @@ public class SoporteService {
         return soporteRepository.findAll();
     }
 
+    public Soporte getSoporteById(Long id) {
+        return soporteRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Soporte no encontrado"));
+    }
+
     public Soporte createSoporte(Soporte soporte) {
         return soporteRepository.save(soporte);
     }
@@ -29,4 +34,12 @@ public class SoporteService {
         existingSoporte.setPeso_trabajo(soporte.getPeso_trabajo());
         return soporteRepository.save(existingSoporte);
     }
+
+    public void deleteSoporte(Long id) {
+        Soporte existingSoporte = soporteRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Soporte no encontrado"));
+        soporteRepository.delete(existingSoporte);
+    }
+    
+
 }

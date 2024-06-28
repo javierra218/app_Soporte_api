@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Comparator;
 
 @Service
 public class TrabajadorService {
@@ -50,8 +51,6 @@ public class TrabajadorService {
         return "Trabajador con ID " + id + " eliminado con éxito.";
     }
 
-    
-
     public void resetPesosAcumulados() {
         List<Trabajador> trabajadores = trabajadorRepository.findAll();
         for (Trabajador trabajador : trabajadores) {
@@ -60,5 +59,22 @@ public class TrabajadorService {
         trabajadorRepository.saveAll(trabajadores);
     }
 
+
+
     
+
+    // public Trabajador getTrabajadorConMaxPeso() {
+    //     return trabajadorRepository.findAll()
+    //         .stream()
+    //         .max(Comparator.comparingInt(Trabajador::getPeso_acumulado))
+    //         .orElse(null);
+    // }
+
+    // public Trabajador getTrabajadorConMinPeso() {
+    //     return trabajadorRepository.findAll()
+    //         .stream()
+    //         .min(Comparator.comparingInt(Trabajador::getPeso_acumulado))
+    //         .orElse(null);
+    // }
+
 }
