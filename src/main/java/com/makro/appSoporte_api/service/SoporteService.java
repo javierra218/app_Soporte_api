@@ -27,7 +27,8 @@ public class SoporteService {
     }
 
     public Soporte updateSoporte(Long id, Soporte soporte) {
-        Soporte existingSoporte = soporteRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Soporte not found"));
+        Soporte existingSoporte = soporteRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Soporte no encontrado"));
         existingSoporte.setNombre_soporte(soporte.getNombre_soporte());
         existingSoporte.setDescripcion(soporte.getDescripcion());
         existingSoporte.setPrioridad(soporte.getPrioridad());
@@ -40,6 +41,5 @@ public class SoporteService {
                 .orElseThrow(() -> new ResourceNotFoundException("Soporte no encontrado"));
         soporteRepository.delete(existingSoporte);
     }
-    
 
 }

@@ -29,7 +29,7 @@ public class AsignacionService {
         
         List<Trabajador> trabajadores = trabajadorRepository.findAll();
         if (trabajadores.isEmpty()) {
-            throw new RuntimeException("No workers found");
+            throw new RuntimeException("No se encontraron trabajadores");
         }
         
         trabajadores.sort((t1, t2) -> t1.getPeso_acumulado().compareTo(t2.getPeso_acumulado()));
