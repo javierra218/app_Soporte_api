@@ -64,4 +64,43 @@ public class AsignacionService {
 
         return asignacionRepository.save(asignacion);
     }
+
+    public Asignacion assignSupportToSpecificWorker(Soporte soporte, Long trabajadorId) {
+        // Guardar la entidad Soporte
+        Soporte savedSoporte = soporteRepository.save(soporte);
+
+        // Obtener el trabajador por ID
+        Trabajador trabajador = trabajadorRepository.findById(trabajadorId)
+                .orElseThrow(() -> new ResourceNotFoundException("Trabajador no encontrado con ID: " + trabajadorId));
+
+        // Crear y guardar la entidad Asignacion
+        Asignacion asignacion = crearGuardarAsignacion(savedSoporte, trabajador);
+
+        return asignacion;
+    }
+
+
+    // Nuevo método para reasignar soporte
+    public Asignacion reasignarSoporte(Long asignacionId, Long nuevoTrabajadorId) {
+        Asignacion asignacion = asignacionRepository.findById(asignacionId)
+                .orElseThrow(() -> new ResourceNotFoundException("Asignacion no encontrada con ID: " + asignacionId));
+
+        Trabajador nuevoTrabajador = trabajadorRepository.findById(nuevoTrabajadorId)
+                .orElseThrow(() -> new ResourceNotFoundException("Trabajador no encontrado con ID: " + nuevoTrabajadorId));
+
+        Trabajador trabajadorAnterior = asignacion.getTrabajador();
+        Soporte soporte = asignacion.getSoporte();
+
+        // Actualizar peso acumulado del trabajador anterior
+        trabajadorAnterior.setPeso_acumulado(trabajadorAnterior.getPeso_acumulado() - soporte.getPeso_trabajo());
+        trabajadorRepository.save(trabajadorAnterior);
+
+        // Actualizar peso acumulado del nuevo trabajador
+        nuevoTrabajador.setPeso_acumulado(nuevoTrabajador.getPeso_acumulado() + soporte.getPeso_trabajo());
+        trabajadorRepository.save(nuevoTrabajador);
+
+        // Actualizar la asignación
+        asignacion.setTrabajador(nuevoTrabajador);
+        return asignacionRepository.save(asignacion);
+    }
 }

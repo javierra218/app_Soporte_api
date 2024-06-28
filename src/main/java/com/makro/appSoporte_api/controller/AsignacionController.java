@@ -16,4 +16,15 @@ public class AsignacionController {
     public Asignacion assignSupport(@RequestBody Soporte soporte) {
         return asignacionService.assignSupport(soporte);
     }
+
+    @PostMapping("/assign/{trabajadorId}")
+    public Asignacion assignSupportToSpecificWorker(@RequestBody Soporte soporte, @PathVariable Long trabajadorId) {
+        return asignacionService.assignSupportToSpecificWorker(soporte, trabajadorId);
+    }
+
+
+    @PutMapping("/reasignar/{asignacionId}/{nuevoTrabajadorId}")
+    public Asignacion reasignarSoporte(@PathVariable Long asignacionId, @PathVariable Long nuevoTrabajadorId) {
+        return asignacionService.reasignarSoporte(asignacionId, nuevoTrabajadorId);
+    }
 }
