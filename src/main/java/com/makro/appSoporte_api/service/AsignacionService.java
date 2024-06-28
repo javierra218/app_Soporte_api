@@ -1,5 +1,6 @@
 package com.makro.appSoporte_api.service;
 
+import com.makro.appSoporte_api.exception.ResourceNotFoundException;
 import com.makro.appSoporte_api.model.Asignacion;
 import com.makro.appSoporte_api.model.Soporte;
 import com.makro.appSoporte_api.model.Trabajador;
@@ -24,28 +25,43 @@ public class AsignacionService {
     private SoporteRepository soporteRepository;
 
     public Asignacion assignSupport(Soporte soporte) {
-        // Guardar primero la entidad Soporte
+        // Guardar la entidad Soporte
         Soporte savedSoporte = soporteRepository.save(soporte);
-        
+
+        // Obtener lista de trabajadores
         List<Trabajador> trabajadores = trabajadorRepository.findAll();
         if (trabajadores.isEmpty()) {
-            throw new RuntimeException("No se encontraron trabajadores");
+            throw new ResourceNotFoundException("No se encontraron trabajadores");
         }
-        
+
+        // Encontrar el trabajador con menor peso acumulado
+        Trabajador trabajador = seleccionarTrabajadorConMenorPeso(trabajadores);
+
+        // Crear y guardar la entidad Asignacion
+        Asignacion asignacion = crearGuardarAsignacion(savedSoporte, trabajador);
+
+        return asignacion;
+    }
+
+    private Trabajador seleccionarTrabajadorConMenorPeso(List<Trabajador> trabajadores) {
         trabajadores.sort((t1, t2) -> t1.getPeso_acumulado().compareTo(t2.getPeso_acumulado()));
         int minPeso = trabajadores.get(0).getPeso_acumulado();
+
         List<Trabajador> candidatos = trabajadores.stream()
                 .filter(t -> t.getPeso_acumulado() == minPeso)
                 .toList();
-        Trabajador trabajador = candidatos.get(new Random().nextInt(candidatos.size()));
 
-        // Crear y guardar la entidad Asignacion
+        return candidatos.get(new Random().nextInt(candidatos.size()));
+    }
+
+    private Asignacion crearGuardarAsignacion(Soporte soporte, Trabajador trabajador) {
+        trabajador.setPeso_acumulado(trabajador.getPeso_acumulado() + soporte.getPeso_trabajo());
+        trabajadorRepository.save(trabajador);
+
         Asignacion asignacion = new Asignacion();
         asignacion.setTrabajador(trabajador);
-        asignacion.setSoporte(savedSoporte); // Usar la entidad Soporte guardada
-        trabajador.setPeso_acumulado(trabajador.getPeso_acumulado() + savedSoporte.getPeso_trabajo());
-        
-        trabajadorRepository.save(trabajador);
+        asignacion.setSoporte(soporte);
+
         return asignacionRepository.save(asignacion);
     }
 }
