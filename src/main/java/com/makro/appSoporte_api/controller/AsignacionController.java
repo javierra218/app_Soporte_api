@@ -3,6 +3,9 @@ package com.makro.appSoporte_api.controller;
 import com.makro.appSoporte_api.model.Asignacion;
 import com.makro.appSoporte_api.model.Soporte;
 import com.makro.appSoporte_api.service.AsignacionService;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,9 +25,13 @@ public class AsignacionController {
         return asignacionService.asignarSoporte(soporte, trabajadorId);
     }
 
-
     @PutMapping("/reasignar/{asignacionId}/{nuevoTrabajadorId}")
     public Asignacion reasignarSoporte(@PathVariable Long asignacionId, @PathVariable Long nuevoTrabajadorId) {
         return asignacionService.reasignarSoporte(asignacionId, nuevoTrabajadorId);
+    }
+
+    @GetMapping
+    public List<Asignacion> getAllAsignaciones() {
+        return asignacionService.getAllAsignaciones();
     }
 }

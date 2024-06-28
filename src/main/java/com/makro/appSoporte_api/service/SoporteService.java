@@ -42,4 +42,8 @@ public class SoporteService {
         soporteRepository.delete(existingSoporte);
     }
 
+    // public List<Soporte> getSoportesByPrioridad(Integer prioridad) {
+    // return soporteRepository.findByPrioridad(prioridad);
+    // }
+
 }

@@ -68,17 +68,16 @@ public class AsignacionService {
     public Asignacion asignarSoporte(Soporte soporte, Long trabajadorId) {
         // Guardar la entidad Soporte
         Soporte savedSoporte = soporteRepository.save(soporte);
-    
+
         // Obtener el trabajador por ID
         Trabajador trabajador = trabajadorRepository.findById(trabajadorId)
                 .orElseThrow(() -> new ResourceNotFoundException("Trabajador no encontrado con ID: " + trabajadorId));
-    
+
         // Crear y guardar la entidad Asignacion
         Asignacion asignacion = crearGuardarAsignacion(savedSoporte, trabajador);
-    
+
         return asignacion;
     }
-
 
     // Nuevo método para reasignar soporte
     public Asignacion reasignarSoporte(Long asignacionId, Long nuevoTrabajadorId) {
@@ -86,7 +85,8 @@ public class AsignacionService {
                 .orElseThrow(() -> new ResourceNotFoundException("Asignacion no encontrada con ID: " + asignacionId));
 
         Trabajador nuevoTrabajador = trabajadorRepository.findById(nuevoTrabajadorId)
-                .orElseThrow(() -> new ResourceNotFoundException("Trabajador no encontrado con ID: " + nuevoTrabajadorId));
+                .orElseThrow(
+                        () -> new ResourceNotFoundException("Trabajador no encontrado con ID: " + nuevoTrabajadorId));
 
         Trabajador trabajadorAnterior = asignacion.getTrabajador();
         Soporte soporte = asignacion.getSoporte();
@@ -103,4 +103,9 @@ public class AsignacionService {
         asignacion.setTrabajador(nuevoTrabajador);
         return asignacionRepository.save(asignacion);
     }
+
+    public List<Asignacion> getAllAsignaciones() {
+        return asignacionRepository.findAll();
+    }
+
 }

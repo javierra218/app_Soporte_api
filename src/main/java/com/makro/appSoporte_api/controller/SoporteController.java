@@ -38,4 +38,9 @@ public class SoporteController {
         soporteService.deleteSoporte(id);
     }
 
+    // @GetMapping("/prioridad/{prioridad}")
+    // public List<Soporte> getSoportesByPrioridad(@PathVariable Integer prioridad) {
+    //     return soporteService.getSoportesByPrioridad(prioridad);
+    // }
+
 }
